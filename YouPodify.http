@@ -1,0 +1,6 @@
+@YouPodify_HostAddress = http://localhost:5015
+
+GET {{YouPodify_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
