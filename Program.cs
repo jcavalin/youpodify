@@ -1,3 +1,4 @@
+using PeeweeKaster.Services;
 using YouPodify.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ DotNetEnv.Env.Load();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<EpisodesService>();
 builder.Services.AddScoped<RssFeedService>();
+builder.Services.AddScoped<DownloaderService>();
 
 builder.Services.AddControllers()
     .AddXmlSerializerFormatters()

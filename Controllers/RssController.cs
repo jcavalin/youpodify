@@ -16,7 +16,7 @@ namespace YouPodify.Controllers
         [HttpGet("{channel}")]
         public async Task<IActionResult> GetAsync(string channel)
         {
-            var podcast = await _episodesService.GetListAsync(channel, 10);
+            var podcast = await _episodesService.GetListAsync(channel, 100);
 
             if (podcast == null) {
                 return NotFound();
