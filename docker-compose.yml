@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - YT_API_KEY=${YT_API_KEY}
+      - FILES_BASE_PATH=/tmp/youpodify
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: always
+

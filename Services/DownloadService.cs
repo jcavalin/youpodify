@@ -30,13 +30,9 @@ public class DownloaderService
 
             await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, filePath);
             
-            var filePathConverted = Path.Combine(basePath!, "episodes_mp3", $"{videoId}.mp3");
-            ConvertToMp3(filePath, filePathConverted);
-            // File.Delete(filePath);
+            Console.WriteLine("Video downloaded: " + filePath);
 
-            Console.WriteLine("Video downloaded: " + filePathConverted);
-
-            return filePathConverted;
+            return filePath;
         }
         else
         {
@@ -45,19 +41,4 @@ public class DownloaderService
 
         return "";
     } 
-
-    public static void ConvertToMp3(string inputFile, string outputFile)
-    {
-        ProcessStartInfo startInfo = new ProcessStartInfo
-        {
-            FileName = "ffmpeg",
-            Arguments = $"-n -i \"{inputFile}\" \"{outputFile}\"",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        using Process process = Process.Start(startInfo)!;
-        process!.WaitForExit();
-    }
 }
