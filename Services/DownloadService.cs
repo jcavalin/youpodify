@@ -13,8 +13,9 @@ public class DownloaderService
         var basePath = Environment.GetEnvironmentVariable("FILES_BASE_PATH");
         Directory.CreateDirectory(basePath!);
 
-        Directory.CreateDirectory(Path.Combine(basePath!, "episodes_mp4"));
-        Directory.CreateDirectory(Path.Combine(basePath!, "episodes_mp3"));
+        var episodesPath = Path.Combine(basePath!, "episodes_mp4");
+        Directory.CreateDirectory(episodesPath);
+        DeleteOldFiles(episodesPath);
 
         var youtube = new YoutubeClient();
 
@@ -26,7 +27,7 @@ public class DownloaderService
 
         if (audioStreamInfo != null)
         {
-            var filePath = Path.Combine(basePath!, "episodes_mp4", $"{videoId}.m4a");
+            var filePath = Path.Combine(episodesPath, $"{videoId}.m4a");
 
             await youtube.Videos.Streams.DownloadAsync(audioStreamInfo, filePath);
             
@@ -41,4 +42,28 @@ public class DownloaderService
 
         return "";
     } 
+
+    static void DeleteOldFiles(string directoryPath)
+    {
+        try
+        {
+            string[] files = Directory.GetFiles(directoryPath);
+            DateTime currentDate = DateTime.Now;
+
+            foreach (var file in files)
+            {
+                DateTime lastWriteTime = File.GetLastWriteTime(file);
+
+                if ((currentDate - lastWriteTime).TotalDays > 1)
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"Deleted file: {file}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 }
