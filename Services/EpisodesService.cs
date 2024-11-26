@@ -20,7 +20,7 @@ public class EpisodesService(IHttpContextAccessor httpContextAccessor)
         });
 
         var searchRequest = ytService.Search.List("snippet");
-        searchRequest.Q = $"@{channelName}"; // Channel name or other identifying info
+        searchRequest.Q = $"@{channelName}";
         searchRequest.Type = "channel";
         searchRequest.MaxResults = 1;
 

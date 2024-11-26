@@ -1,7 +1,14 @@
 using PeeweeKaster.Services;
 using YouPodify.Services;
+using NLog.Web;
+using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+LogManager.Setup().LoadConfigurationFromAppSettings();
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
 
 DotNetEnv.Env.Load();
 

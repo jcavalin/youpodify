@@ -17,7 +17,7 @@ namespace YouPodify.Controllers
             var filePath = await _downloaderService.DownloadAsync(video);
 
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "audio/mpeg", "yourfile.mp3");
+            return File(fileBytes, "audio/mpeg", $"{video}.mp3");
         }
     }
 }

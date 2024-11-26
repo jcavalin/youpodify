@@ -54,7 +54,7 @@ public class DownloaderService
             {
                 DateTime lastWriteTime = File.GetLastWriteTime(file);
 
-                if ((currentDate - lastWriteTime).TotalDays > 1)
+                if ((currentDate - lastWriteTime).TotalMinutes > 10)
                 {
                     File.Delete(file);
                     Console.WriteLine($"Deleted file: {file}");

@@ -1,0 +1,20 @@
+{
+  "name": "Big Bang .NET Container",
+  "dockerFile": "Dockerfile",
+  "context": ".",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "mhutchie.git-graph"
+      ]
+    }
+  },
+  "postCreateCommand": "dotnet restore"
+}
